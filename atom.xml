@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>欢迎来到钉子拉里的妙妙屋</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2022-11-06T11:28:01.894Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>papapatrick</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《你不知道的javas》读书笔记#1——作用域与闭包</title>
+    <link href="http://example.com/2022/11/06/%E3%80%8A%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84javas%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1%E2%80%94%E2%80%94%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E9%97%AD%E5%8C%85/"/>
+    <id>http://example.com/2022/11/06/%E3%80%8A%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84javas%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1%E2%80%94%E2%80%94%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E9%97%AD%E5%8C%85/</id>
+    <published>2022-11-06T11:14:12.000Z</published>
+    <updated>2022-11-06T11:28:01.894Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="第一章-作用域是什么"><a href="#第一章-作用域是什么" class="headerlink" title="第一章 作用域是什么"></a>第一章 作用域是什么</h2><p>在了解作用于是什么之前，这本书简单的介绍了下JavaScript是怎么编译和执行的，我用自己的话说一遍，首先是进行词法的分析，就是编译器把我们写的代码按照一定规则拆解成一个个的此法单元（token）例如 “var” “&#x3D;”等，然后依靠程序语法将这些词法单元变为可执行的代码，即生成电脑可以执行的指令（例如创建一个变量并令它的值为2）交给引擎完成。</p><p>而作用域在其中的作用就是作为一个规则，规范一个变量可以在那里被访问，修改，以至于不会乱套，这里介绍了一对比较重要的概念，就是引擎在遇到一个变量名称的时候他会执行LHS查询和RHS查询，前者是在当前的词法作用域下找有没有叫这个名字的变量，如果没有就创造一个（在不严格模式下），而后者比前者多了个查询这个变量的内容的步骤，并且如果没有就会报错。<br>注：在定义一个函数的时候，之前我一直以为是把这个函数的内容赋值给了一个变量，让他拖着内容，但是这是错误的，我现在更偏向于函数名更像是一个传送门把变量传送到定义的地方（所以函数的作用域在定义时就已经确定了，不像this一样是动态作用域）</p><h2 id="第二章-词法作用域"><a href="#第二章-词法作用域" class="headerlink" title="第二章 词法作用域"></a>第二章 词法作用域</h2><p>个人觉得这章没什么好讲的，就多了个词法作用域的查找规则——可以向上但不可以向下，然后可以通过window.a 的形式在任意地方访问全局变量，然后函数的作用域我在第一章的注中也作了说明，其他的像修改词法作用域我现在只是看了一遍，目前没觉得这玩意有啥用，还有一些什么程序优化的，我觉得对于现在的我来讲有点超前了。</p><h2 id="第三章-函数作用域和块作用域"><a href="#第三章-函数作用域和块作用域" class="headerlink" title="第三章 函数作用域和块作用域"></a>第三章 函数作用域和块作用域</h2><p>函数作用域像气泡一样包裹着一个个像变量名，函数名的标识符，这里介绍了匿名函数和立刻执行函数，匿名函数没什么好说的，立刻执行的话就是通过用括号包裹函数把函数的定义变成了函数表达式，立刻执行他，并在后面的括号中传入参数</p><p>块作用域，这是非常方便的一个规则，可以把一个变量绑定在单单一个作用域中，让程序更稳定，我觉得需要注意的有let和const，他俩应该放在块开始的地方因为他不会提升到最前面定义。块作用域还可以优化性能，比如让较大数据的处理单独隔离出一个作用域，在执行后可以直接销毁，防止被闭包包裹一直保存。</p><h2 id="第四章-提升"><a href="#第四章-提升" class="headerlink" title="第四章 提升"></a>第四章 提升</h2><p>这也没啥好说的，就是定义变量的时候，编译器会把定义语句提前，赋值语句（包括把函数赋值给变量）位置不变，并且函数比变量定义的优先级高</p><h2 id="第五章-作用域与闭包"><a href="#第五章-作用域与闭包" class="headerlink" title="第五章 作用域与闭包"></a>第五章 作用域与闭包</h2><p>一句话：当函数可以记住并访问所在的词法作用域，即函数在当前词法作用域之外执行，就产生了闭包，也就是在函数的作用域之外引用（并保存了？？？）了函数所在的作用域。</p><p>闭包的使用非常的广泛，常见的回调函数就是闭包，并且我们使用的立刻执行函数也会创建一个闭包（不能被外界访问）关闭了一个作用域</p><p>我想我们可以用一个循环示例说明</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;<span class="number">5</span>;i++)  </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="keyword">let</span> j=i;  </span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="keyword">function</span> <span class="title function_">timer</span>(<span class="params"></span>)  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(j);  </span><br><span class="line">    &#125;,j1000);  </span><br></pre></td></tr></table></figure><p>在上面的示例中，每次for循环都创建了一个新的作用域然后用j对每个闭包所引用的（保存）作用域进行了绑定，使得每个settimeout的闭包都有正确的j以供访问，不同于var的单单创建赋值，如果使用了var的话，由于回调函数是在循环执行后做的，那么每个闭包引用的作用域中的j都是5了</p><p>最后再加上一个立刻执行写的循环</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;<span class="number">5</span>;i++)  </span><br><span class="line">&#123;  </span><br><span class="line">    (<span class="keyword">function</span> (<span class="params">j</span>)  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="keyword">function</span> <span class="title function_">timer</span>(<span class="params"></span>)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(j);  </span><br><span class="line">        &#125;,j*<span class="number">1000</span>)  </span><br><span class="line">        &#125;)(i)  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>除了回调函数，对于闭包的运用还有模板就是通过闭包的独立特性，创建多个属性相同的实例<br>，由于闭包产生的条件，模板中必须返回一个内部函数！！也就是return 函数 如</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 标准的闭包函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">A</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="keyword">var</span> i=<span class="number">0</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">function</span> <span class="title function_">b</span>(<span class="params"></span>)&#123;</span><br><span class="line">              <span class="keyword">return</span> (++i);</span><br><span class="line">      &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> v=<span class="title function_">A</span>();</span><br><span class="line"><span class="title function_">v</span>();    <span class="comment">//1 不需要用v.b()访问</span></span><br><span class="line"><span class="title function_">v</span>();    <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line">另外，我们现在也可以用<span class="keyword">import</span>标识符从其他文件引入并绑定一个模板到当前的作用域中，</span><br></pre></td></tr></table></figure><h2 id="写在最后："><a href="#写在最后：" class="headerlink" title="写在最后："></a>写在最后：</h2><p>其实这本书（上）已经快看完了，现在看下来的最大感受是JavaScript是非常优美的语言，给我的感觉非常轻盈，灵活。很多内部细节还是非常耐人寻味,值得推敲的，推荐大🔥都买一本来看看。另外，这个系列我主要用来记录自己的思考，是作为个人总结，所以教学属性不是很强，看不懂可以来问我：）</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;第一章-作用域是什么&quot;&gt;&lt;a href=&quot;#第一章-作用域是什么&quot; class=&quot;headerlink&quot; title=&quot;第一章 作用域是什么&quot;&gt;&lt;/a&gt;第一章 作用域是什么&lt;/h2&gt;&lt;p&gt;在了解作用于是什么之前，这本书简单的介绍了下JavaScript是怎么编译和</summary>
+      
+    
+    
+    
+    
+    <category term="JavaScript" scheme="http://example.com/tags/JavaScript/"/>
+    
+    <category term="读书笔记" scheme="http://example.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>css定位总结以及绝对定位margin失效的原因</title>
+    <link href="http://example.com/2022/11/06/css%E5%AE%9A%E4%BD%8D%E6%80%BB%E7%BB%93%E4%BB%A5%E5%8F%8A%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8Dmargin%E5%A4%B1%E6%95%88%E7%9A%84%E5%8E%9F%E5%9B%A0/"/>
+    <id>http://example.com/2022/11/06/css%E5%AE%9A%E4%BD%8D%E6%80%BB%E7%BB%93%E4%BB%A5%E5%8F%8A%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8Dmargin%E5%A4%B1%E6%95%88%E7%9A%84%E5%8E%9F%E5%9B%A0/</id>
+    <published>2022-11-06T11:04:26.000Z</published>
+    <updated>2022-11-06T11:25:50.561Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>最近在复习CSS定位的相关知识，感觉之前做项目的时候写CSS都是遇到需求然后去网上CV下来能正常显示就行不会去关注CSS里的逻辑关系，这样效率高，但是如果以后遇到一些bug，不懂其中的一些基本原理就无从下手，现在是时候写一篇博客总结一下了。()</p></blockquote><h3 id="CSS的定位方式有三种-由显示顺序从高到低有-定位-浮动-标准流。"><a href="#CSS的定位方式有三种-由显示顺序从高到低有-定位-浮动-标准流。" class="headerlink" title="CSS的定位方式有三种  由显示顺序从高到低有 定位 浮动 标准流。"></a>CSS的定位方式有三种  由显示顺序从高到低有 定位 浮动 标准流。</h3><h4 id="先从标准流说起"><a href="#先从标准流说起" class="headerlink" title="先从标准流说起"></a>先从标准流说起</h4><p>标准流的元素排序就是原原本本的从上到下从左到右，他的排列方式同时也受元素的显示模式（display）影响，分为块状，即一个元素就占一行，常见的有div hr p h ul ol form 等（没错h和p也是块状，我之前一直以为他是行内元素），行状 如 span a ，以及行内块 ，这是一种比较特殊的排列方式，它可以与其他行内块元素在同一行显示，且默认的宽度即为元素本身宽度，并且还能像块状元素那样设置高宽，内外边距等等，比如 img input td 等。</p><h4 id="再来说浮动"><a href="#再来说浮动" class="headerlink" title="再来说浮动"></a>再来说浮动</h4><p>  他是可以设置在子元素上的，可以向左或向右浮动，可以让块级元素在一行内显示，类似于将其转换成了行内块，但是与之不同的是他脱标了（关于脱标会在下面进行详细介绍）也就不占位置，有可能被下面的元素顶进来，并且不会被撑开，想要清除这些负面效果的话只需在父元素上设置 overflow: hidden即可。</p><h4 id="再来说定位"><a href="#再来说定位" class="headerlink" title="再来说定位"></a>再来说定位</h4><p> 常见的定位方式有fixed absolute relative ，他们之间大致区别没什么好说的，需要注意的有absolute是会脱标的而relative不会，这也就是父相子绝的由来。<br>定位可以总结为 定位模式+偏移  偏移可以设置为 left：50%  如果不知道元素的大小的话可以用 transform: translateX(-50%);来进行居中。</p><hr><h4 id="下面介绍下脱标"><a href="#下面介绍下脱标" class="headerlink" title="下面介绍下脱标"></a>下面介绍下脱标</h4><p> 脱标就是脱离标准流的限制，它可以使元素可以设置宽高，默认都由内容决定，不再给父元素汇报大小，同时display大部分也变成了块，但是不受标准流限制行为像行内块（大概？？</p><hr><h4 id="绝对定位不可以用margin-实现水平居中"><a href="#绝对定位不可以用margin-实现水平居中" class="headerlink" title="绝对定位不可以用margin  实现水平居中"></a>绝对定位不可以用margin  实现水平居中</h4><p>元素设置了absolute 之后脱离了文本流，系统自动根据第一个非静态定位的父元素设置了left和top，我的理解是他脱标了，宽度由内容大小决定，所以margin就失去作用了，但是如果设置了 left: 0,right:0 （浏览器会按照左上右下的顺序尽量满足设置）的话元素的外边界就被拉伸到了父元素的最右边，也就是元素的宽度被拉伸了，这时候我们就可以通过设置固定的宽度和margin 来实现水平居中了</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;最近在复习CSS定位的相关知识，感觉之前做项目的时候写CSS都是遇到需求然后去网上CV下来能正常显示就行不会去关注CSS里的逻辑关系，这样效率高，但是如果以后遇到一些bug，不懂其中的一些基本原理就无从下手，现在是时候写一篇博客总结一下了。()&lt;/</summary>
+      
+    
+    
+    
+    
+    <category term="css" scheme="http://example.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>观影感受集合</title>
+    <link href="http://example.com/2022/11/05/%E8%A7%82%E5%BD%B1%E6%84%9F%E5%8F%97%E9%9B%86%E5%90%88/"/>
+    <id>http://example.com/2022/11/05/%E8%A7%82%E5%BD%B1%E6%84%9F%E5%8F%97%E9%9B%86%E5%90%88/</id>
+    <published>2022-11-05T11:30:36.000Z</published>
+    <updated>2022-11-12T15:53:14.272Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="《白日梦想家》——-1"><a href="#《白日梦想家》——-1" class="headerlink" title="《白日梦想家》——#1"></a>《白日梦想家》——#1</h1><blockquote><p>To see the world,things dangerous to come to,</p></blockquote><blockquote><p>to see behind walls,to draw closer,</p></blockquote><blockquote><p>to find each other and to feel.</p></blockquote><blockquote><p>That is the purpose of life.</p></blockquote><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">我和这部电影在我还在读初中的时候就认识了，因为那个时候在b站上经常会看看电影的几分钟讲解的这种快餐视频（还记得那个时候谷阿莫还是这类视频的顶流，现在流行的都是些啥“注意看这个男人”的泛滥营销号）看到这个这个标题再加上快餐视频的“精短”的讲解，我自然而然地把它归类在剧情俗套的男主咸鱼翻身励志鸡汤故事，也就没什么兴趣看看原片。但最近看到了些电影的混剪，里面正好有男主在冰岛公路滑板的片段（就是上面放的这个图片），当时就被冰岛的景色吸引到了，于是就找了节水课看一遍原片。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">整体看下来，这部电影引起我最大的思考不是“勇于尝试”(电影还是非常理想化的，励志的鸡汤已经听得耳朵起茧了)，而是旅游的意义，在现在我们随便就可以通过互联网看到远处的美景，冰岛的火山，极光，而如果亲身去看的话，旅途中的杂事可以说很让人头疼（这一点在我暑假的旅游中亲身经历过了）所以现在包括我很多人都很少很少出去旅行了，所以从结果上来讲旅行看似失去了它的意义，但是从过程上来讲，它的确是无可替代的，开阔眼界不是单单看着像素点，而对于旅途中的未知和更多新的人和事来讲就仁者见仁了，有的人乐在其中，有的人避之不及。但总得来讲，旅行能让我们暂时从我们的正常生活中脱身出来，体验不一样的生活，并且“旅途的意义不仅仅在于他的结果，更在于他的过程”，我认为这句话不单单适用于旅途。</span><br><span class="line"></span><br><span class="line">这部电影对于我还有另一个影响，那就是对电影有了新的认识，比如我现在就觉得电影应该躲在被窝里看，周围有别人总感觉看的不舒坦，随着电影的镜头沉浸地体验截然不同的人生，在周围黑漆漆的环境下，背景音乐和画面的感染力被放大，当然电影不是什么良药，它只是个窗口，能让我看到不一样的世界。</span><br><span class="line"></span><br><span class="line">最后，这片尾曲（stay alive）真的好好听，像这种清唱非常非常符合我的音品，然后的话我觉得我的语言表达能力正在慢慢退化，这让我本来就像大便一样的语言表达能力雪上加霜，希望以后慢慢改正吧</span><br></pre></td></tr></table></figure><h1 id="《美丽人生》——-2"><a href="#《美丽人生》——-2" class="headerlink" title="《美丽人生》——#2"></a>《美丽人生》——#2</h1><p>这是一部以二战时意大利为背景的电影，本人对历史不是很感兴趣，也就不是很了解，所以前半段我看的挺迷的，再加上我个人不是很喜欢意大利语发音，感觉很憋屈，差点看到一半退出了，但还是坚持下来了。</p><p>对于男主的形象我觉得，电影中塑造的非常的牛逼，前半段给我的印象是油嘴滑舌吊儿郎当的勾搭美女的小混混，看到后面在亲情父爱的感染下油嘴滑舌变成了聪明机智，吊儿郎当变成了果断勇敢，我觉得他是个很纯粹单纯的人，做一件事仅仅需要一个动机就去做了，就像追女主一样，也就是他的纯粹，还有他的机灵和幽默让我感觉就像一个小太阳一样照耀着身边的人，这个演员的笑容真是太有感染力了，真的太想认识男主了</p><p>对于剧情来说，后半段在集中营的生活电影中塑造的也挺好，让我感觉男主就像黑暗中的一点点微弱的烛光，付出了一切，保护着他的孩子，结局真的太操蛋了，在生命的最后一刻他还在尽他所能完成他的“谎言”（就是封面的这张图）</p><p>总的来说是一部非常好的喜剧诠释悲剧内核的电影（虽然我也没怎么笑，因为我的笑点比珠穆朗玛峰还高）</p><p>挤完这一点牙膏，我又去看了看其他大佬的影评和相关的历史背景，真的又被震撼到了….，作为旁观者能引起的共鸣真的太有限了，像第一次看我就只能看到对生活的乐观态度 幽默还有父爱。</p><hr><h1 id="《霸王别姬》——-3"><a href="#《霸王别姬》——-3" class="headerlink" title="《霸王别姬》——#3"></a>《霸王别姬》——#3</h1><p>就电影本身而言，前半段在戏班子里地狱的生活在我戴上耳机之后，能很真实地感受到电影地氛围，我觉得电影整体分的氛围做的真的绝了，印象很深的有“磨剪子嘞戗菜刀”的凄惨叫卖声，和一些比如像流水这样的背景白噪音，还有很多像糖葫芦和剑的前后对比和呼应，都很能引起我的共鸣，让我感叹程蝶衣的悲惨一生，让我的心跟着主角的命运，真的，看到小豆子割手指和捣嘴那一段配合上背景音乐和氛围渲染真的让我心痛和同情他的遭遇。</p><p>抛开电影本身内容而言，其实我在高中的时侯就看了一部分，但是那时候还是没有耐住性子看完，现在大学看也有更多的时间和耐心，并且我也能看懂更多像电影光影和构图还有前后意象呼应等手法，其实静下心来慢慢去品味也挺有意思的。</p><p>另外，这个京剧戏班子的故事背景也能勾起我小时候的回忆，记得我从小生活在一个小农村，名字叫岩头村，在那个村子里也有一座庙，逢年过节长辈就会带着我去拜，偶尔也会有戏班子来这唱戏，虽然我那个时候也看不懂戏（当然我现在也欣赏不来），但是就是喜欢凑热闹，一有戏奶奶就会骑着车载着我穿过颠簸的石头路，我记得门口会有卖那种会发光的荧光棒，可以弯折成荧光手环，每次我都会吵着让奶奶给我买一个戴，我还记得我最喜欢的是绿色的，在听戏时我老是觉得无聊就会嚷嚷着先走，我到现在还记得坐在奶奶后座上颠簸着，带着朦胧睡眼回家的感觉。</p><p>回忆真的会止不住，我现在又想起了小时候老是喜欢吃完晚饭，在天还没完全暗下去的时候坐在家门口的一个大石头上吹着晚风，那个时候的风真的很温柔，偶尔还会有几只修勾陪我一起吹，我觉得它们都认识我了，我们总会心照不宣地到约定的地点一起吹风，貌似我还会带点骨头给他们🤔，还有家门口的臭水河，黑不拉几的我觉得蛮恶心的，但是听我妈说以前挺干净的他们经常在那里洗衣服，现在想想几年前在我读初中的时候在我的外婆家还保留着这个在河边洗衣服的习俗，但是现在都拆迁了，从小村落变成了小区，我还记得小时候隔壁是个小卖部，那里有卖游戏卡片，我积累了一大堆，我当时我觉得我是整个可观测宇宙最牛逼的雄性智人（虽然现在也是这么想的），那个时候开水也是拿出来卖的，我记得还是几毛钱一碗来着，现在我仅仅只需要爬上爬下十楼（傻逼尚九）就可以获得一升一分钱的开水，还有小时候下大雨满大水的时候，我觉得蛮有意思的，我可以躲在我的房间里，我现在还记得那个用光盘看了黑猫警长的下午，阳光透过浅绿的窗户，洒在房间的木质地板上，楼下的水刚好漫过我的膝盖我和我的发小（小二逼卵子）一起在玩水，我还摔了一跤，在水里睁开眼睛迷迷糊糊看到一个黑影（是个虫子？？），还有好多好多回忆，幼儿园的，小学的，初中的，过年放鞭炮，端午节撞蛋我现在还记得，我以后也尽量不会忘记。</p><p>不知不觉已经写了这么多了，这部电影中的旧社会和新社会真的很能引发我的思考，我觉得现在互联网也让曾经的新社会变成了旧社会，如果你能耐心看完，那么我爱你（我开玩笑的），我很喜欢叙旧，每当夜深人静的时候我睡不着我就会想想以前的事，所以很多事情我都会记得很清楚，我想了很久我这么做的理由，现在，作为十八岁的我，我想，回忆旧事，能让我知道我是从哪里来的，我不想忘记我的根，我怀念他，我也感激这一切，身边的人，经历的事，这都不断提醒我，我是一个人，是一个有血有肉的，有过去有现在也有未来的人，我是现在的我是过去的结果，每个过去的我组成了现在的我，我真心想永远记住这一切，等我死了可以刻在我的墓碑上（或许是二维码🤔）我想让全宇宙都知道我来过，我生活过，我作为一个智慧生物存在过，以后我可能会通过物理手段，把我的经历对着宇宙发射出去，如果有条件的话。</p><p>一口气把想写的写出来真的就和便秘的时候干了几包泻药一样爽 ：）</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;《白日梦想家》——-1&quot;&gt;&lt;a href=&quot;#《白日梦想家》——-1&quot; class=&quot;headerlink&quot; title=&quot;《白日梦想家》——#1&quot;&gt;&lt;/a&gt;《白日梦想家》——#1&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;To see the world,thin</summary>
+      
+    
+    
+    
+    
+    <category term="影评" scheme="http://example.com/tags/%E5%BD%B1%E8%AF%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>个人博客搭建过程和以后博客规划(转自wordpress)</title>
+    <link href="http://example.com/2022/11/05/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E5%92%8C%E4%BB%A5%E5%90%8E%E5%8D%9A%E5%AE%A2%E8%A7%84%E5%88%92-%E8%BD%AC%E8%87%AAwordpress/"/>
+    <id>http://example.com/2022/11/05/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E5%92%8C%E4%BB%A5%E5%90%8E%E5%8D%9A%E5%AE%A2%E8%A7%84%E5%88%92-%E8%BD%AC%E8%87%AAwordpress/</id>
+    <published>2022-11-05T10:54:35.000Z</published>
+    <updated>2022-11-05T11:32:55.690Z</updated>
+    
+    <content type="html"><![CDATA[<p>~~~个人博客今天终于搭完了是时候来总结总结吹吹p了~~~</p><p>（其实第一次搭博客不是用wordpress搭的，用的是hexo，搭完后发现博客后续的更新啥的比较麻烦还要用markdown格式写文章感觉麻烦了，于是就转wordpress了，有一说一宝塔真的好方便，不过自己手动部署还是能学到很多东西的）</p><p>以下是我个人在搭博客时遇到的问题可以作为参考和个人经验的总结。</p><h4 id="一-服务器操作系统的选择"><a href="#一-服务器操作系统的选择" class="headerlink" title="一.服务器操作系统的选择"></a>一.服务器操作系统的选择</h4><p>个人建议像我这样的新手不要用Alibaba Cloud Linux因为对于像我这样的小白来讲，遇到问题都是面向搜索引擎解决的，操作系统偏大众一点解决问题的方案会更多，更普遍一点。</p><h4 id="二-在安装lnmp环境时明明事件显示安装成功却在应用商店没显示（安装失败）"><a href="#二-在安装lnmp环境时明明事件显示安装成功却在应用商店没显示（安装失败）" class="headerlink" title="二.在安装lnmp环境时明明事件显示安装成功却在应用商店没显示（安装失败）"></a>二.在安装lnmp环境时明明事件显示安装成功却在应用商店没显示（安装失败）</h4><p>每次遇到这种事情我都会习惯性的重复好几次操作试图感动电脑hhhh希望以后可以改正这个坏习惯。</p><p>其实这个显示成功仅仅只是安装进程成功结束了，即使完成后即使有报错也看不到（这点明明可以从安装时间差异太大看出来，但是那时候觉得可能是文件大小的差异也没太在意）</p><p>方案1.看过几个博客之后了解到可能是内存不够（穷逼只买了1G）需要下载Linux工具箱设置2048MB的虚拟内存，然后试了试并没有成功….</p><p>方案2.又找了找了解到可能需要升级系统内核，于是复制了博客里的yum命令更新，结果显示yum没有安装，最后发现我用的是Ubuntu安装包管理用的不是yum是sudo apt-get(属实是功课没做好….)，但是事情还是没有结束，用了sudo apt-get 还是安装失败，（可能和之前安装失败有关？？）最后使用aptitude成功无脑更新成功，安装好了libxml之类的，再次尝试安装居然成功了！！但是我还是不知道为什么会成功……..(悲),cv工程师的本质暴露地一览无遗 🙁</p><p>环境安装好了后面的部署wordpress工作就很容易了跟着博客来基本没问题(记得开80端口),安装完毕后就拥有了自己的博客了!!</p><p>最后放个报错镇楼:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">No package ‘libxml-2.0’ found</span><br><span class="line"></span><br><span class="line">Consider adjusting the PKG_CONFIG_PATH environment variable if you</span><br><span class="line">installed software in a non-standard prefix.</span><br><span class="line"></span><br><span class="line">Alternatively, you may set the environment variables LIBXML_CFLAGS</span><br><span class="line">and LIBXML_LIBS to avoid the need to call pkg-config.</span><br><span class="line">See the pkg-config man page for more details.</span><br><span class="line">make: *** No targets specified and no makefile found. Stop.</span><br><span class="line">make: *** No rule to make target ‘install’. Stop.</span><br><span class="line">========================================================</span><br><span class="line">Ubuntu 22.04.1 LTS</span><br><span class="line">\l</span><br><span class="line">Bit:64 Mem:920M Core:1 gcc:11.2.0 cmake:3.22.1</span><br><span class="line">Linux 5.15.0-46-generic x86_64</span><br><span class="line">ERROR: php-7.4.30 install failed.</span><br><span class="line">安装失败，请截图以上报错信息发帖至论坛www.bt.cn/bbs求助</span><br><span class="line">|-Successify — 命令已执行! –</span><br></pre></td></tr></table></figure><hr><h4 id="关于以后的博客内容的规划"><a href="#关于以后的博客内容的规划" class="headerlink" title="关于以后的博客内容的规划"></a>关于以后的博客内容的规划</h4><p>1.电影影评 我打算每周都看一部电影(梦想是把豆瓣top250都看一遍)然后会在这里更新个人的观影感受等等小b话</p><p>2.(题解??) 虽然说本人是算法菜鸡但是还是会尝试写题解来加深自己的理解滴</p><p>3.开发上的一些问题和感悟啥的,想写就写,反正爷写啥也不关你事(我开玩笑的)</p><p>4.一些生活里的小批事和一些个人阶段性的总结以及部分分享欲会在这里发泄,欢迎大伙来玩 🙂</p><p>以上,作为我的第一篇博客</p><p>2022.10.10 22:38</p><p>作于工地集中营</p><h3 id="补：距离个人博客搭建完有一段时间了，因为我买不起服务器了所以又转hexo了-（悲），不过静态博客还是蛮香的，而且最重要的是免费，以后要开始更新技术总结类型的博客了，欢迎大家来玩：）"><a href="#补：距离个人博客搭建完有一段时间了，因为我买不起服务器了所以又转hexo了-（悲），不过静态博客还是蛮香的，而且最重要的是免费，以后要开始更新技术总结类型的博客了，欢迎大家来玩：）" class="headerlink" title="补：距离个人博客搭建完有一段时间了，因为我买不起服务器了所以又转hexo了 （悲），不过静态博客还是蛮香的，而且最重要的是免费，以后要开始更新技术总结类型的博客了，欢迎大家来玩：）"></a>补：距离个人博客搭建完有一段时间了，因为我买不起服务器了所以又转hexo了 （悲），不过静态博客还是蛮香的，而且最重要的是免费，以后要开始更新技术总结类型的博客了，欢迎大家来玩：）</h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;~~~个人博客今天终于搭完了是时候来总结总结吹吹p了~~~&lt;/p&gt;
+&lt;p&gt;（其实第一次搭博客不是用wordpress搭的，用的是hexo，搭完后发现博客后续的更新啥的比较麻烦还要用markdown格式写文章感觉麻烦了，于是就转wordpress了，有一说一宝塔真的好方便，不</summary>
+      
+    
+    
+    
+    
+    <category term="闲聊" scheme="http://example.com/tags/%E9%97%B2%E8%81%8A/"/>
+    
+  </entry>
+  
+</feed>
