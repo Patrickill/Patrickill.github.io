@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-01-13T14:27:56.370Z</updated>
+  <updated>2023-01-13T14:42:54.390Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,24 +17,28 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://example.com/2023/01/13/%E6%B2%A1%E4%BA%8B%E7%9E%8E%E6%95%B4%E8%85%BE#1%20%E7%94%A8nginx%E5%B0%86hexo%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/"/>
-    <id>http://example.com/2023/01/13/%E6%B2%A1%E4%BA%8B%E7%9E%8E%E6%95%B4%E8%85%BE#1%20%E7%94%A8nginx%E5%B0%86hexo%E9%83%A8%E7%BD%B2%E5%88%B0Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/</id>
-    <published>2023-01-13T13:23:25.298Z</published>
-    <updated>2023-01-13T14:27:56.370Z</updated>
+    <title>闲着没事瞎折腾#1 用nginx把hexo挂在Linux服务器上</title>
+    <link href="http://example.com/2023/01/13/%E9%97%B2%E7%9D%80%E6%B2%A1%E4%BA%8B%E7%9E%8E%E6%8A%98%E8%85%BE-1-%E7%94%A8nginx%E6%8A%8Ahexo%E6%8C%82%E5%9C%A8Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/"/>
+    <id>http://example.com/2023/01/13/%E9%97%B2%E7%9D%80%E6%B2%A1%E4%BA%8B%E7%9E%8E%E6%8A%98%E8%85%BE-1-%E7%94%A8nginx%E6%8A%8Ahexo%E6%8C%82%E5%9C%A8Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/</id>
+    <published>2023-01-13T14:39:55.000Z</published>
+    <updated>2023-01-13T14:42:54.390Z</updated>
     
-    <content type="html"><![CDATA[<p>title: 没事瞎整腾#1 用nginx将hexo部署到Linux服务器上<br>cover: ..&#x2F;pic&#x2F;nginx.jpg<br>date: 2022-11-05 19:30:36<br>tags: 影评</p><blockquote><p>突然发现之前买的服务器还有几天就到期了，就想着闲着也是闲着就试试自己再手动把我的博客挂到服务器上，借此熟悉熟悉Linux的相关命令</p></blockquote><p>下面是我遇到的一些坑和坎</p><h2 id="1-配置相关环境"><a href="#1-配置相关环境" class="headerlink" title="1.配置相关环境"></a>1.配置相关环境</h2><p>主要有nginx和node npm 本来用apt都可以装的，但是在使用的时候出现了版本太低的情况，由于我习惯选一些老的Linux版本因为这样网上搜到的办法多一点，但是版本太低也会出现不兼容的情况最后还是升级到了 Ubuntu 20.0.4 然后了解到可以用nvm做node管理工具就解决了版本兼容问题，虽然但是，就是不知道为什么我下了node之后npm还要额外下….后面也没管，<del>能跑就行</del></p><h2 id="2-创建一个新用户并且赋予权限"><a href="#2-创建一个新用户并且赋予权限" class="headerlink" title="2.创建一个新用户并且赋予权限"></a>2.创建一个新用户并且赋予权限</h2><p>一开始创建普通用户的时候输入密码没反应我还以为卡住了就去搜，然后才知道这是Linux的”独特”机制hhh，然后就是赋予权限，网上搜了一大堆方法，有的是改配置文件有的是什么把新用户归到root用户组里，总之按照网上的教程来，我就只能让我的新用户用sudo以管理员权限执行 但是用sudo cd就不行，后面了解到是因为sudo只能执行软件程序，cd是系统偏底层的指令(?) 所以不可以用，然后让我感到奇怪的是有些能访问像home而且里面还有个叫git的文件夹，我就觉得可能用户是用文件夹处理的并且转换用户的时候不会自动跳转到那个文件夹里，后来发现还真的是这样hhh，然后就用root用户的权限在git文件夹里为所欲为了hhh</p><p>后面就是跟着教程来就好了，不过需要注意的是git的branch和网上的大部分教程不一样，要改成main了(原来的master好像因为什么政治原因不能继续使用了)</p><p>现在至少会用Linux做点事情了，熟悉了一下这玩意是怎么运作的，这个标题是我乱取的<del>反正也没人来看</del>，就是记录我没事干闲的慌得时候折腾一些新东西遇到的问题啥的hhhh。</p>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>突然发现之前买的服务器还有几天就到期了，就想着闲着也是闲着就试试自己再手动把我的博客挂到服务器上，借此熟悉熟悉Linux的相关命令</p></blockquote><p>下面是我遇到的一些坑和坎</p><h2 id="1-配置相关环境"><a href="#1-配置相关环境" class="headerlink" title="1.配置相关环境"></a>1.配置相关环境</h2><p>主要有nginx和node npm 本来用apt都可以装的，但是在使用的时候出现了版本太低的情况，由于我习惯选一些老的Linux版本因为这样网上搜到的办法多一点，但是版本太低也会出现不兼容的情况最后还是升级到了 Ubuntu 20.0.4 然后了解到可以用nvm做node管理工具就解决了版本兼容问题，虽然但是，就是不知道为什么我下了node之后npm还要额外下….后面也没管，<del>能跑就行</del></p><h2 id="2-创建一个新用户并且赋予权限"><a href="#2-创建一个新用户并且赋予权限" class="headerlink" title="2.创建一个新用户并且赋予权限"></a>2.创建一个新用户并且赋予权限</h2><p>一开始创建普通用户的时候输入密码没反应我还以为卡住了就去搜，然后才知道这是Linux的”独特”机制hhh，然后就是赋予权限，网上搜了一大堆方法，有的是改配置文件有的是什么把新用户归到root用户组里，总之按照网上的教程来，我就只能让我的新用户用sudo以管理员权限执行 但是用sudo cd就不行，后面了解到是因为sudo只能执行软件程序，cd是系统偏底层的指令(?) 所以不可以用，然后让我感到奇怪的是有些能访问像home而且里面还有个叫git的文件夹，我就觉得可能用户是用文件夹处理的并且转换用户的时候不会自动跳转到那个文件夹里，后来发现还真的是这样hhh，然后就用root用户的权限在git文件夹里为所欲为了hhh</p><p>后面就是跟着教程来就好了，不过需要注意的是git的branch和网上的大部分教程不一样，要改成main了(原来的master好像因为什么政治原因不能继续使用了)</p><p>现在至少会用Linux做点事情了，熟悉了一下这玩意是怎么运作的，这个标题是我乱取的<del>反正也没人来看</del>，就是记录我没事干闲的慌得时候折腾一些新东西遇到的问题啥的hhhh。</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;title: 没事瞎整腾#1 用nginx将hexo部署到Linux服务器上&lt;br&gt;cover: ..&amp;#x2F;pic&amp;#x2F;nginx.jpg&lt;br&gt;date: 2022-11-05 19:30:36&lt;br&gt;tags: 影评&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;</summary>
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;突然发现之前买的服务器还有几天就到期了，就想着闲着也是闲着就试试自己再手动把我的博客挂到服务器上，借此熟悉熟悉Linux的相关命令&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;下面是我遇到的一些坑和坎&lt;/p&gt;
+&lt;h2 id=&quot;1-配置相关环境&quot;&gt;&lt;a</summary>
       
     
     
     
+    
+    <category term="瞎折腾" scheme="http://example.com/tags/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
     
   </entry>
   
