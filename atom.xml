@@ -6,7 +6,7 @@
   <link href="https://papapatrick.cn/atom.xml" rel="self"/>
   
   <link href="https://papapatrick.cn/"/>
-  <updated>2023-01-27T04:01:12.263Z</updated>
+  <updated>2023-07-08T03:33:18.449Z</updated>
   <id>https://papapatrick.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TED记录</title>
+    <link href="https://papapatrick.cn/2023/07/08/TED%E8%AE%B0%E5%BD%95/"/>
+    <id>https://papapatrick.cn/2023/07/08/TED%E8%AE%B0%E5%BD%95/</id>
+    <published>2023-07-08T03:26:03.000Z</published>
+    <updated>2023-07-08T03:33:18.449Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>前言：</p><p>这是一个记录我看完一篇TED之后的思考与想法的系列，对于每个演讲我都会给出原视频的链接然后加上自己的想法</p></blockquote><p>另外，如果你不知道TED是什么的话：TED 是一个非盈利性的组织，会邀请一些有趣、想法奇特的人来做18分钟以内的演讲，其创办目的旨在传播有独特的思想来改变生活态度，进而改变世界。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;前言：&lt;/p&gt;
+&lt;p&gt;这是一个记录我看完一篇TED之后的思考与想法的系列，对于每个演讲我都会给出原视频的链接然后加上自己的想法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;另外，如果你不知道TED是什么的话：TED 是一个非盈利性的组织，会邀请一些有</summary>
+      
+    
+    
+    
+    
+    <category term="TED" scheme="https://papapatrick.cn/tags/TED/"/>
+    
+  </entry>
   
   <entry>
     <title>git与常见操作和分支管理</title>
